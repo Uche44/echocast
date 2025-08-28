@@ -138,21 +138,24 @@ export class NeynarService {
       }
 
       // For demo purposes, create a mock user with signer
-      const mockUser: NeynarUser = {
-        fid: 12345,
-        username: "demo_user",
-        display_name: "Demo User",
-        pfp_url: "/diverse-user-avatars.png",
-        follower_count: 150,
-        following_count: 89,
-      }
+      // const mockUser: NeynarUser = {
+      //   fid: 12345,
+      //   username: "demo_user",
+      //   display_name: "Demo User",
+      //   pfp_url: "/diverse-user-avatars.png",
+      //   follower_count: 150,
+      //   following_count: 89,
+      // }
 
-      const mockSignerUuid = "demo-signer-uuid-" + Math.random().toString(36).substring(7)
+      // const mockSignerUuid = "demo-signer-uuid-" + Math.random().toString(36).substring(7)
 
-      localStorage.setItem("farcaster_fid", mockUser.fid.toString())
-      localStorage.setItem("farcaster_signer_uuid", mockSignerUuid)
+      // localStorage.setItem("farcaster_fid", mockUser.fid.toString())
+      // localStorage.setItem("farcaster_signer_uuid", mockSignerUuid)
 
-      return { user: mockUser, signerUuid: mockSignerUuid }
+      // return { user: mockUser, signerUuid: mockSignerUuid }
+
+      // No existing session found; return a null user to allow UI to prompt sign-in
+      return { user: null }
     } catch (error) {
       console.error("Auto sign-in failed:", error)
       return {
@@ -162,8 +165,8 @@ export class NeynarService {
     }
   }
 
-  static getStoredSignerUuid(): string | null {
-    if (typeof window === "undefined") return null
-    return localStorage.getItem("farcaster_signer_uuid")
-  }
+  // static getStoredSignerUuid(): string | null {
+  //   if (typeof window === "undefined") return null
+  //   return localStorage.getItem("farcaster_signer_uuid")
+  // }
 }

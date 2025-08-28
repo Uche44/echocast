@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useMiniKit } from "@coinbase/onchainkit/minikit"
 import { AuthGuard } from "@/components/auth-guard"
 import { PostComposer } from "@/components/post-composer"
 import { UserProfile } from "@/components/user-profile"
@@ -13,6 +14,7 @@ import { ApiClient } from "@/lib/api-client"
 import type { PostOptions } from "@/lib/types"
 
 export default function HomePage() {
+  const { setFrameReady, isFrameReady } = useMiniKit()
   const { toast } = useToast()
   const { signerUuid } = useAuth()
   const [pendingPost, setPendingPost] = useState<{
@@ -21,6 +23,10 @@ export default function HomePage() {
   } | null>(null)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [showPostingStatus, setShowPostingStatus] = useState(false)
+
+  useEffect(() => {
+    if (!isFrameReady) setFrameReady()
+  }, [isFrameReady, setFrameReady])
 
   const handlePaymentRequired = (content: string, options: PostOptions) => {
     setPendingPost({ content, options })

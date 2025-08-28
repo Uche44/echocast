@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { DM_Sans } from "next/font/google"
 import "./globals.css"
+import { MiniKitContextProvider } from "@/providers/MiniKitProvider"
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -32,7 +33,9 @@ html {
 }
         `}</style>
       </head>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <MiniKitContextProvider>{children}</MiniKitContextProvider>
+      </body>
     </html>
   )
 }
