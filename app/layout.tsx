@@ -32,6 +32,21 @@ html {
   // --font-sans: ${dmSans.variable};
 }
         `}</style>
+
+<meta name="fc:frame" content='{
+  "version":"next",
+  "imageUrl":"https://your-app.com/embed-image.png",
+  "button":{
+    "title":"Launch Echocast",
+    "action":{
+      "type":"launch_frame",
+      "name":"EchoCast",
+      "url":"https://echocast-eta.vercel.app"
+    }
+  }
+}' />
+
+
       </head>
       <body className="font-sans antialiased">
         <MiniKitContextProvider>{children}</MiniKitContextProvider>
