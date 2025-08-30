@@ -13,10 +13,12 @@ import { useAuth } from "@/hooks/use-auth"
 import { ApiClient } from "@/lib/api-client"
 import type { PostOptions } from "@/lib/types"
 
+
 export default function HomePage() {
   const { setFrameReady, isFrameReady } = useMiniKit()
   const { toast } = useToast()
-  const { signerUuid } = useAuth()
+  // const { signerUuid } = useAuth()
+   const { user, isLoading, error } = useAuth();
   const [pendingPost, setPendingPost] = useState<{
     content: string
     options: PostOptions
@@ -27,6 +29,9 @@ export default function HomePage() {
   useEffect(() => {
     if (!isFrameReady) setFrameReady()
   }, [isFrameReady, setFrameReady])
+
+
+  if (isLoading || !user) return null;
 
   const handlePaymentRequired = (content: string, options: PostOptions) => {
     setPendingPost({ content, options })
@@ -46,7 +51,8 @@ export default function HomePage() {
       const platforms = []
 
       if (options.farcaster) {
-        promises.push(ApiClient.postToFarcaster(content, signerUuid || undefined))
+        // promises.push(ApiClient.postToFarcaster(content, signerUuid || undefined))
+        promises.push(ApiClient.postToFarcaster(content))
         platforms.push("Farcaster")
       }
 
